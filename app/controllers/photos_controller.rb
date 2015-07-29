@@ -4,7 +4,7 @@ class PhotosController < ApplicationController
 	end
 
 	def show
-		@photos = 
+		
 	end
 
 	def new
@@ -12,6 +12,7 @@ class PhotosController < ApplicationController
 	end
 
 	def create
+		@photo 
 	end
 
 	def edit
