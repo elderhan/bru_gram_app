@@ -11,5 +11,7 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require 1-col-portfolio
+ *= require bootstrap/glyphicons
  *= require_self
  */
