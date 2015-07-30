@@ -1,0 +1,23 @@
+<% if @photo.errors.present? %>
+  <% @photo.errors.full_messages.each do |msg| %>
+  	  <p> <%= msg %> </p>
+  <% end %>
+<% end %>
+
+<%= form_for @photo do |f| %> 
+
+<p> <%= f.label :image, "Upload a photo's link!" %> 
+	<%= f.text_field :image %> <br>
+</p>
+
+<p> <%= f.label :caption, "Description: " %> 
+	<%= f.text_field :caption %> <br>
+</p>
+
+<p> <%= f.label :public, "Make Photo Public?" %> 
+	<%= f.check_box :public %> <br>
+</p>
+
+<%= f.submit %>
+
+<%end %>

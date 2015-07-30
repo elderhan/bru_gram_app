@@ -1,0 +1,15 @@
+<% if @comment.errors.present? %>
+  <% @comment.errors.full_messages.each do |msg| %>
+  	  <p> <%= msg %> </p>
+  <% end %>
+<% end %>
+
+<%= form_for @comment do |f| %> 
+
+<p> <%= f.label :body, "Add your comment!" %> 
+	<%= f.text_field :body %> <br>
+</p>
+
+<%= f.submit %>
+
+<%end %>

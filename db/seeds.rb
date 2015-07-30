@@ -8,4 +8,18 @@
 
 User.delete_all
 
-User.create! email: "m@h.com", password: "password", password_confirmation: "password"
+first_user = User.create! email: "m@h.com", password: "password", password_confirmation: "password"
+
+second_user = User.create! email: "s@b.com", password: "michigan", password_confirmation: "michigan"
+
+Photo.delete_all
+
+Photo.create! image: "https://i.imgur.com/evgXlNx.jpg?1", public: false, caption: "Ostrich on the Beach!", user_id: first_user.id
+
+Photo.create! image: "https://i.imgur.com/k77Pj5d.jpg?1", public: false, caption: "Cape of Good Hope!", user_id: first_user.id
+
+Photo.create! image: "https://i.imgur.com/V7eH8xk.jpg?1", public: false, caption: "Visiting the heart of Cape Town", user_id: second_user.id
+
+Photo.create! image: "http://i.imgur.com/HbpmF9K.jpg?1", public: true, caption: "Hought Bay", user_id: second_user.id
+
+Photo.create! image: "http://i.imgur.com/ZHFrJsX.jpg?1", public: true, caption: "Cape Point", user_id: first_user.id
