@@ -34,7 +34,7 @@ gem 'font-awesome-rails'
 
 gem 'bootstrap-glyphicons'
 
-#ADD gem for bootstrap, rails12factor, puma, procfile, and NOT paperclip?
+# ADD PUMA AND PROCFILE
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

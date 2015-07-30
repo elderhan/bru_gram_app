@@ -1,12 +1,14 @@
 class PhotosController < ApplicationController
-	#before_action
 	def index
 		@photos = Photo.all.order(created_at: :asc)
 	end
 
 	def show
-		@user = current_user
-		@photo = Photo.find(params[:id])
+		  @photo = Photo.find(params[:id])
+		  @comment = Comment.new
+		if view_certain_photos(@photo)
+			redirect_to photos_path, alert: "This photo is private"
+		end
 	end
 
 	def new
@@ -23,33 +25,61 @@ class PhotosController < ApplicationController
 	end
 
 	def edit
-		#This needs permissions
 		@photo = Photo.find(params[:id])
+		if !(verify_photo_owner(@photo))
+			redirect_to photos_path, alert: "This photo is not yours"
+		end
 	end
 
 	def update
-		#this needs permissions
 		@photo = Photo.find(params[:id])
-		if @photo.update(photo_params)
-			redirect_to photo_path(@photo)
+		if !(verify_photo_owner(@photo))
+		    if @photo.update(photo_params)
+			    redirect_to photo_path(@photo)
+		    else
+			    render :edit
+		    end
 		else
-			render :edit
+		    redirect_to photos_path, alert: "This photo is not yours"
 		end
 	end
 
 	def destroy
-		#this needs permissions
 		@photo = Photo.find(params[:id])
-		@photo.destroy
-		redirect_to root_path
+		if verify_photo_owner(@photo)
+		  @photo.destroy
+		  redirect_to root_path
+		else
+			redirect_to photos_path, alert: "This photo is not yours"
+		end
 	end
 
-	private
-    def photo_params
-      params.require(:photo).permit(:public, :caption, :image)
-    end
+	def profile
+		@photos = Photo.all.order(created_at: :asc)
+	end
 
-    def verify_photo_owner
-    	<%
+	#def like
+  	#	@photo = Photo.find(params[:id])
+  	#	@photo.liked_by current_user
+
+  	#	if request.xhr?
+   	#	  head :ok
+ 	#	else
+    #	  redirect_to photo_path(@photo)
+  	#	end
+	#end
+
+	private
+      def photo_params
+        params.require(:photo).permit(:public, :caption, :image)
+      end
+ 
+      def verify_photo_owner(photo)
+        photo.user == current_user
+      end
+
+      def view_certain_photos(photo)
+	    !(photo.user == current_user || photo.public == true)
+	  end
 
 end

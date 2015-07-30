@@ -1,5 +1,27 @@
 
-<h3><em>Photo by <%=@user.email%></em> | <%= link_to "Home", photos_path %></h3>
+<h3><em>Photo by <%=current_user.email%></em> | <%= link_to "Home", photos_path %></h3> 
+<% if own_photo?(@photo) %>
+  <h3>   <%= link_to "Edit", edit_photo_path(@photo)%> | <%= link_to "Delete", photo_path(@photo), 
+			method: :delete,
+			data: {confirm: "Are you sure?"}  %>
+		| <%= link_to "Like", photo_path(@photo), class: 'vote', method: :put, remote: true %>
+  </h3>
+<% end %>
 <br>
 <br>
 <img src=<%=@photo.image%>>
+
+<h2>Comments</h2>
+<% @photo.comments.each do |comment| %>
+	<h3><%= comment.user.email %></h3>
+	<h4><%= comment.body %></h4>
+	<% if can_comment?(comment) %>
+	<h6><%= link_to "Delete", [comment.photo, comment],
+		method:  :delete,
+		data: {confirm: "Are you sure?"} %> | 
+		<%= link_to "Edit", edit_photo_comment_path(@photo, comment) %> </h6>
+	<% end %>
+<% end %>
+
+<h2>Add a new comment:</h2>
+<%= render 'comments/form' %>

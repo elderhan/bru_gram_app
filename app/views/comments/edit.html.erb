@@ -1,0 +1,11 @@
+<h1> Edit Comment </h1>
+
+<%= form_for [@photo, @comment] do |f| %>
+
+<p> <%= f.label "Edit your comment!" %> 
+	<%= f.text_field :body %> <br>
+</p>
+
+<%= f.submit %>
+
+<%end %>

@@ -1,7 +1,3 @@
-
-<!-- Navigation -->
-
-
 <!-- Page Content -->
 <div class="container">
 
@@ -16,15 +12,14 @@
             <h1 class="page-header"><%=link_to "Upload New Photo", new_photo_path %> </h1>
         </div>
         <div class="col-md-3">
-            <h1 class="page-header"><%=link_to "User Profile", photos_profile_path %> </h1>
+            <h1 class="page-header"><%=link_to "Home", photos_path %> </h1>
         </div>
-        <div class=
     </div>
     <!-- /.row -->
 
     <!-- Project Template -->
     <% @photos.each do |photo| %>
-        <% if view_photos?(photo) %>
+        <% if own_photo?(photo) %>
             <div class="row">
                 <div class="col-md-7">
                     <a href="/photos/<%=photo.id%>">
